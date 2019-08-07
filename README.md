@@ -3,9 +3,14 @@
 ```
 npm init -y
 npm install webpack webpack-cli webpack-merge clean-webpack-plugin html-webpack-plugin webpack-dev-server --save-dev
-# run webpack-dev-server in development environment
+
+# Run webpack-dev-server in development environment
 npm run start
-# build assets in production environment
+
+# Test build assets in development environment
+npx webpack --config webpack.dev.js
+
+# Build assets in production environment
 npm run build
 ```
 
