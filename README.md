@@ -1,17 +1,23 @@
 # webpack
 
-```
-npm init -y
-npm install webpack webpack-cli webpack-merge clean-webpack-plugin html-webpack-plugin webpack-dev-server --save-dev
+```bash
+$ npm install
 
 # Run webpack-dev-server in development environment
-npm run start
+$ npm run start
 
 # Test build assets in development environment
-npx webpack --config webpack.dev.js
+$ npx webpack --config webpack.dev.js
 
 # Build assets in production environment
-npm run build
+$ npm run build
+```
+
+# Install dependent Go tools
+
+```bash
+# Go Modules can not manage dependent tools now.
+$ bin/go-post-compile
 ```
 
 # DB Migration
@@ -21,9 +27,9 @@ npm run build
 
 ```bash
 # Install
-go get bitbucket.org/liamstask/goose/cmd/goose
+$ go get bitbucket.org/liamstask/goose/cmd/goose
 
 # Use
-heroku run 'goose -env production up' -a $APP_NAME
-heroku run 'goose -env production down' -a $APP_NAME
+$ heroku run 'goose -env production up' -a $APP_NAME
+$ heroku run 'goose -env production down' -a $APP_NAME
 ```
