@@ -1,0 +1,10 @@
+development:
+    dialect: sqlite3
+    datasource: development.db
+    dir: db/migrations
+
+production:
+    dialect: postgres
+    datasource: ${DATABASE_URL}
+    dir: db/migrations
+    table: migrations

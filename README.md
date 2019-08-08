@@ -22,14 +22,13 @@ $ bin/go-post-compile
 
 # DB Migration
 
-- gooseを使用しています。
-- dbディレクトリ以下で設定を管理します。
+- sql-migrationを使用しています。
 
 ```bash
-# Install
-$ go get bitbucket.org/liamstask/goose/cmd/goose
+# In development environment
+sql-migrate new create_users
+sql-migrate up
 
-# Use
-$ heroku run 'goose -env production up' -a $APP_NAME
-$ heroku run 'goose -env production down' -a $APP_NAME
+# In production environment
+sql-migrate up -env production
 ```

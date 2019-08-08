@@ -1,9 +1,15 @@
 #!/bin/bash
 
-go get -u -v github.com/rubenv/sql-migrate/sql-migrate
-GO111MODULE=off go get -u -v github.com/motemen/gore/cmd/gore
-GO111MODULE=off go get -u github.com/mdempsky/gocode
-GO111MODULE=off go get -u github.com/k0kubun/pp
+cp go.mod /tmp/go.mod
+cp go.sum /tmp/go.sum
+
+go get -v github.com/rubenv/sql-migrate/sql-migrate
+GO111MODULE=off go get -v github.com/motemen/gore/cmd/gore
+GO111MODULE=off go get -v github.com/mdempsky/gocode
+GO111MODULE=off go get -v github.com/k0kubun/pp
 
 # Reset change of go.mod and go.sum
-[ -d .git ] && git checkout go.mod go.sum
+#[ -d .git ] && git checkout go.mod go.sum
+
+[ -f go.mod ] && mv /tmp/go.mod go.mod
+[ -f go.sum ] && mv /tmp/go.sum go.sum
