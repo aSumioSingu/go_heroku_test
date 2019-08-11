@@ -13,6 +13,7 @@ func main() {
 
 	router := gin.New()
 	router.Use(gin.Logger())
+	router.Static("/assets", "./public/assets")
 	router.LoadHTMLGlob("templates/*")
 
 	router.GET("/", func(c *gin.Context) {

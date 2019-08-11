@@ -1,0 +1,12 @@
+@import url("./common.css");
+
+p.red {
+    padding: 20px;
+    color: red;
+	background-color: lightgrey;
+}
+p.blue {
+    padding: 20px;
+    color: blue;
+	background-color: lightgrey;
+}
