@@ -16,6 +16,7 @@ node_modules/
 
 # assets output path
 public/assets/
+dst
 
 # sqlite files
 *.db

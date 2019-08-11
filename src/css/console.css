@@ -1,0 +1,30 @@
+@import url("./common.css");
+
+header {
+    padding: 20px;
+    color: black;
+	background-color: lightgreen;
+}
+
+footer {
+    padding: 20px;
+    color: black;
+	background-color: lightyellow;
+}
+
+main {
+    padding: 20px;
+    color: black;
+	background-color: lightcyan;
+}
+
+p.red {
+    padding: 20px;
+    color: red;
+	background-color: lightgrey;
+}
+p.blue {
+    padding: 20px;
+    color: blue;
+	background-color: lightgrey;
+}

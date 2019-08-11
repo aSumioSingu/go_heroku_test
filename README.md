@@ -5,8 +5,6 @@ $ npm install
 
 # Build assets
 $ npx webpack
-# or
-$ npm run build
 ```
 
 # Install dependent Go tools
@@ -31,8 +29,5 @@ sql-migrate up -env production
 
 ```bash
 $ npx webpack-dev-server
-# or
-$ npm run start
-
 $ go run main.go
 ```

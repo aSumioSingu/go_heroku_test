@@ -15,11 +15,11 @@ func main() {
 
 	router := gin.New()
 	router.Use(gin.Logger())
-	router.Static("/assets", "./public/assets")
+	router.Static("/assets", "./dst/assets")
 	router.HTMLRender = loadTemplates()
 
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl", nil)
+		c.HTML(http.StatusOK, "index.html", nil)
 	})
 
 	if port == "" {
@@ -32,12 +32,12 @@ func main() {
 func loadTemplates() multitemplate.Renderer {
 	r := multitemplate.NewRenderer()
 
-	layouts, err := filepath.Glob("assets/tmpl/layouts/*.tmpl")
+	layouts, err := filepath.Glob("dst/tmpl/layouts/*.html")
 	if err != nil {
 		panic(err.Error())
 	}
 
-	includes, err := filepath.Glob("assets/tmpl/includes/*.tmpl")
+	includes, err := filepath.Glob("dst/tmpl/includes/*.html")
 	if err != nil {
 		panic(err.Error())
 	}

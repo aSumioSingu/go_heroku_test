@@ -6,28 +6,15 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const StyleExtHtmlWebpackPlugin = require('style-ext-html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const writeFilePlugin = require('write-file-webpack-plugin');
+const glob = require("glob");
 
 var config = {
-  context: path.resolve(__dirname, 'assets'),
+  context: path.resolve(__dirname, 'src'),
   entry: {
     console: './js/console.js'
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      template: "./html/console.html",
-      filename: "console.html",
-      chunks: ['console']
-    }),
-    new MiniCssExtractPlugin({
-      filename: '[name]-[hash].css',
-      chunkFilename: '[id].css',
-      ignoreOrder: false // Enable to remove warnings about conflicting order
-    }),
-    // new StyleExtHtmlWebpackPlugin() <- Uncomment it if inject css string to head tag of html.
-    new ScriptExtHtmlWebpackPlugin({
-      defaultAttribute: 'defer'
-    }),
     new writeFilePlugin()
   ],
   module: {
@@ -47,7 +34,7 @@ var config = {
             loader: 'url-loader',
             options: {
               limit: 8192,
-              name: '[name]-[hash].[ext]'
+              name: 'assets/[name]-[hash].[ext]'
             }
           }
         ]
@@ -64,12 +51,32 @@ var config = {
     ]
   },
   output: {
-    filename: '[name]-[hash].bundle.js',
-    path: path.resolve(__dirname, 'public/assets')
+    filename: 'assets/[name]-[hash].bundle.js',
+    path: path.resolve(__dirname, 'dst'),
+    publicPath: '/'
   }
 };
 
-console.log(process.env.APP_NAME);
+var entryHtmls = glob.sync('src/tmpl/**/*.html');
+entryHtmls.forEach(function (html) {
+  html = html.replace(/^src\//, '');
+  config.plugins.push(new HtmlWebpackPlugin({
+    template: html,
+    filename: html,
+    chunks: path.basename(html) == 'base.html' ? ['console'] : []
+  }));
+});
+
+config.plugins = config.plugins.concat([
+  new MiniCssExtractPlugin({
+    filename: 'assets/[name]-[hash].css',
+    chunkFilename: 'assets/[id].css',
+    ignoreOrder: false // Enable to remove warnings about conflicting order
+  }),
+  // new StyleExtHtmlWebpackPlugin() <- Uncomment it if replace css link tag to string.
+  new ScriptExtHtmlWebpackPlugin({
+    defaultAttribute: 'defer'
+  })]);
 
 if (process.env.APP_NAME != null ) {
   config = merge(config, {
