@@ -73,7 +73,7 @@ config.plugins = config.plugins.concat([
     chunkFilename: 'assets/[id].css',
     ignoreOrder: false // Enable to remove warnings about conflicting order
   }),
-  // new StyleExtHtmlWebpackPlugin() <- Uncomment it if replace css link tag to string.
+  new StyleExtHtmlWebpackPlugin(), //<- Uncomment it if replace css link tag to string.
   new ScriptExtHtmlWebpackPlugin({
     defaultAttribute: 'defer'
   })]);
