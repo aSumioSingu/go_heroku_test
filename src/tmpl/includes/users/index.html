@@ -1,3 +1,20 @@
 {{define "main"}}
-<p class="red">Users content</p></br>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>Nickname</th>
+          <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+      {{range .users}}
+      <tr>
+        <th>{{.ID}}</th>
+        <td>{{.Nickname}}</td>
+        <td>{{.Email}}</td>
+      </tr>
+      {{end}}
+    </tbody>
+</table>
 {{end}}

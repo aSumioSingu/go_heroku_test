@@ -10,10 +10,14 @@ import (
 	_ "github.com/heroku/x/hmetrics/onload"
 	"github.com/mattn/go-zglob"
 
-	"go_heroku_test/controllers"
+	. "go_heroku_test/controllers"
+	"go_heroku_test/db"
 )
 
 func main() {
+	db.Init()
+	defer db.Close()
+
 	port := os.Getenv("PORT")
 
 	router := gin.New()
@@ -26,7 +30,7 @@ func main() {
 		c.Header("Cache-Control", "no-cache")
 		c.HTML(http.StatusOK, "index.html", nil)
 	})
-	router.GET("/users", controllers.UsersHandler)
+	router.GET("/users", UsersHandler)
 
 	if port == "" {
 		router.Run()
