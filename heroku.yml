@@ -5,4 +5,5 @@
     web: Dockerfile
 
  run:
+   release: sql-migrate up
    web: go_heroku_test
