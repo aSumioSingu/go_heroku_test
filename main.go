@@ -15,10 +15,12 @@ func main() {
 
 	router := gin.New()
 	router.Use(gin.Logger())
+
 	router.Static("/assets", "./dst/assets")
 	router.HTMLRender = loadTemplates()
 
 	router.GET("/", func(c *gin.Context) {
+		c.Header("Cache-Control", "no-cache")
 		c.HTML(http.StatusOK, "index.html", nil)
 	})
 
