@@ -16,7 +16,6 @@ var (
 // Init is initialize db from main function
 func Init() {
 	database_url := os.Getenv("DATABASE_URL")
-	println(database_url)
 	var err interface{}
 	if database_url != "" {
 		db, err = gorm.Open("postgres", database_url)
