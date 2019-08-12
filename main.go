@@ -3,11 +3,14 @@ package main
 import (
 	"net/http"
 	"os"
-	"path/filepath"
+	"strings"
 
 	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-gonic/gin"
 	_ "github.com/heroku/x/hmetrics/onload"
+	"github.com/mattn/go-zglob"
+
+	"go_heroku_test/controllers"
 )
 
 func main() {
@@ -23,6 +26,7 @@ func main() {
 		c.Header("Cache-Control", "no-cache")
 		c.HTML(http.StatusOK, "index.html", nil)
 	})
+	router.GET("/users", controllers.UsersHandler)
 
 	if port == "" {
 		router.Run()
@@ -34,12 +38,12 @@ func main() {
 func loadTemplates() multitemplate.Renderer {
 	r := multitemplate.NewRenderer()
 
-	layouts, err := filepath.Glob("dst/tmpl/layouts/*.html")
+	layouts, err := zglob.Glob("dst/tmpl/layouts/**/*.html")
 	if err != nil {
 		panic(err.Error())
 	}
 
-	includes, err := filepath.Glob("dst/tmpl/includes/*.html")
+	includes, err := zglob.Glob("dst/tmpl/includes/**/*.html")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -49,7 +53,7 @@ func loadTemplates() multitemplate.Renderer {
 		layoutCopy := make([]string, len(layouts))
 		copy(layoutCopy, layouts)
 		files := append(layoutCopy, include)
-		r.AddFromFiles(filepath.Base(include), files...)
+		r.AddFromFiles(strings.Replace(include, "dst/tmpl/includes/", "", -1), files...)
 	}
 	return r
 }
