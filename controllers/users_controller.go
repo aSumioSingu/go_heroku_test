@@ -9,7 +9,6 @@ import (
 func UsersHandler(c *gin.Context) {
 	users := []User{}
 	db.GetDB().Find(&users)
-	c.Header("Cache-Control", "no-cache")
 	c.HTML(200, "users/index.html", gin.H{
 		"users": users,
 	})

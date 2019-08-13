@@ -23,11 +23,11 @@ func main() {
 	router := gin.New()
 	router.Use(gin.Logger())
 
+	router.Use(headersByRequestURI())
 	router.Static("/assets", "./dst/assets")
 	router.HTMLRender = loadTemplates()
 
 	router.GET("/", func(c *gin.Context) {
-		c.Header("Cache-Control", "no-cache")
 		c.HTML(http.StatusOK, "index.html", nil)
 	})
 	router.GET("/users", UsersHandler)
@@ -37,6 +37,14 @@ func main() {
 		router.Run()
 	} else {
 		router.Run(":" + port)
+	}
+}
+
+func headersByRequestURI() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		if strings.HasPrefix(c.Request.RequestURI, "/assets/") {
+			c.Header("Cache-Control", "max-age=31536000")
+		}
 	}
 }
 
