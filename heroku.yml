@@ -3,7 +3,9 @@
  build:
   docker:
     web: Dockerfile
-
+ release:
+  command:
+    - bin/sql-migrate up -env production
+  image: web
  run:
-   release: sql-migrate up -evn production
-   web: go_heroku_test
+   web: bin/go_heroku_test
