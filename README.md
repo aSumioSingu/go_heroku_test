@@ -5,6 +5,8 @@ $ npm install
 
 # Build assets
 $ npx webpack
+# Run webpack-dev-server in development environment
+$ npx webpack-dev-server
 ```
 
 # Install dependent Go tools
