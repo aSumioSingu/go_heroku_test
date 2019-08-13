@@ -47,6 +47,15 @@ func loadTemplates() multitemplate.Renderer {
 	if err != nil {
 		panic(err.Error())
 	}
+	// Move base.html to head
+	n := 0
+	for _, l := range layouts {
+		if l != "dst/tmpl/layouts/base.html" {
+			layouts[n] = l
+			n++
+		}
+	}
+	layouts = append([]string{"dst/tmpl/layouts/base.html"}, layouts[:n]...)
 
 	includes, err := zglob.Glob("dst/tmpl/includes/**/*.html")
 	if err != nil {
@@ -57,7 +66,6 @@ func loadTemplates() multitemplate.Renderer {
 	for _, include := range includes {
 		layoutCopy := make([]string, len(layouts))
 		copy(layoutCopy, layouts)
-		println(layoutCopy[0])
 		files := append(layoutCopy, include)
 		r.AddFromFiles(strings.Replace(include, "dst/tmpl/includes/", "", -1), files...)
 	}
