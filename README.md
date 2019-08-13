@@ -18,11 +18,12 @@ $ bin/go-post-compile
 
 ```bash
 # In development environment
-sql-migrate new create_users
-sql-migrate up
+$ createdb development
+$ sql-migrate new create_users
+$ sql-migrate up
 
 # In production environment
-sql-migrate up -env production
+$ sql-migrate up -env production
 ```
 
 # Run App

@@ -31,6 +31,7 @@ func main() {
 		c.HTML(http.StatusOK, "index.html", nil)
 	})
 	router.GET("/users", UsersHandler)
+	router.GET("/works", WorksHandler)
 
 	if port == "" {
 		router.Run()

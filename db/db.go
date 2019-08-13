@@ -20,7 +20,7 @@ func Init() {
 	if database_url != "" {
 		db, err = gorm.Open("postgres", database_url)
 	} else {
-		db, err = gorm.Open("sqlite3", "development.db")
+		db, err = gorm.Open("postgres", "postgres://postgres:postgres@localhost:5432/development?sslmode=disable")
 	}
 	if err != nil {
 		panic(err)

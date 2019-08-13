@@ -1,7 +1,8 @@
 development:
-    dialect: sqlite3
-    datasource: development.db
+    dialect: postgres
+    datasource: postgres://postgres:postgres@localhost:5432/development?sslmode=disable
     dir: db/migrations
+    table: migrations
 
 production:
     dialect: postgres
