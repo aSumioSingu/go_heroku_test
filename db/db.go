@@ -25,6 +25,8 @@ func Init() {
 	if err != nil {
 		panic(err)
 	}
+	db.DB().SetMaxIdleConns(20)
+	db.DB().SetMaxOpenConns(20)
 }
 
 func Close() {
