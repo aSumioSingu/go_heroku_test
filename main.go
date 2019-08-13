@@ -57,6 +57,7 @@ func loadTemplates() multitemplate.Renderer {
 	for _, include := range includes {
 		layoutCopy := make([]string, len(layouts))
 		copy(layoutCopy, layouts)
+		println(layoutCopy[0])
 		files := append(layoutCopy, include)
 		r.AddFromFiles(strings.Replace(include, "dst/tmpl/includes/", "", -1), files...)
 	}
